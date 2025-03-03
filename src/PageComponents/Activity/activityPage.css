@@ -1,0 +1,107 @@
+/* Container for the Activity Page */
+.activity-container {
+  margin-left: 270px; /* Space for sidebar */
+  padding: 20px;
+  max-width: 1200px;
+  margin-right: auto;
+}
+
+/* Layout for Form and Activity List */
+.activity-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Activity Form Styling */
+.activity-form {
+  width: 40%;
+  background: #f9fafb;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.activity-form h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #333;
+}
+
+.activity-form input {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.activity-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+  font-weight: bold;
+}
+
+.activity-form button:hover {
+  background-color: #1e40af;
+}
+
+/* Activity List Styling */
+.activity-list {
+  width: 55%;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.activity-list h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Activity Item Styling */
+.activity-item {
+  background: #f4f4f4;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Icon Styling */
+.activity-icon {
+  font-size: 24px;
+  color: #2563eb;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .activity-content {
+    flex-direction: column;
+  }
+
+  .activity-form,
+  .activity-list {
+    width: 100%;
+  }
+
+  .activity-container {
+    margin-left: 0;
+    padding: 10px;
+  }
+}
