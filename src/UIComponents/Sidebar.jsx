@@ -1,19 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import './Sidebar.css'
 import { FaUserCircle } from 'react-icons/fa'
 import { FaRunning } from 'react-icons/fa'
 import { FaDumbbell } from 'react-icons/fa'
 import { FaCalendarAlt } from 'react-icons/fa'
+import { useState } from 'react'
 
 
 
 const Sidebar = () => {
+
+  const [currentusername, setCurrentUsername] = useState(localStorage.getItem("currentUsername"))
+  console.log(currentusername)
+
+  useEffect(()=>{
+    
+     setCurrentUsername(localStorage.getItem("currentUsername"));
+  }, [localStorage.getItem("currentUsername")]
+)
+  
+
   return (
     <div className="sidebar">
       <div className="profile">
         <FaUserCircle className="profile-icon" /> 
-        <h3>Grace</h3> 
+        <h3>{localStorage.getItem("currentUsername")}</h3> 
+        
       </div>
       
       <ul>

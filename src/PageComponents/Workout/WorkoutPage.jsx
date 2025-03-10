@@ -5,7 +5,8 @@ import './WorkoutPage.css' // Import the CSS file
 
 
 const WorkoutPage = () => {
-  const userId = 2;
+  // const userId = 2;
+  const userId = localStorage.getItem("currentUserId")
 
   const [workouts, setWorkouts] = useState([])
   const [newWorkout, setNewWorkout] = useState({
@@ -15,7 +16,17 @@ const WorkoutPage = () => {
     date: ""
   })
 
-  // const [editingWorkout, setEditingWorkout] = useState(null);
+  const [showEdit, setShowEdit] = useState(false);
+
+  const [editWorkout, setEditWorkout] = useState({
+    type: "",
+    duration: "",
+    caloriesBurned: "",
+    date: "",
+    id:""
+  })
+
+  
 
   const workoutTypes = ["Yoga", "Running", "Pilates", "Strength Training", "Hiking", "Aerobics", "Cardio", "Swimming", "HIIT"];
  
@@ -39,6 +50,10 @@ const WorkoutPage = () => {
     setNewWorkout({...newWorkout, [e.target.name]: e.target.value})
   }
 
+  const handleEditInputChange = (e) => {
+    setEditWorkout({...editWorkout, [e.target.name]: e.target.value})
+  }
+
   const handleDateChange = (e) => {
     setNewWorkout({...newWorkout, date: e.target.value})
   }
@@ -56,20 +71,28 @@ const WorkoutPage = () => {
 
   }
 
-  // const handleEditWorkout = (workout) => {
-  //   // setEditingWorkout(workout);
-  // };
+  const handleEditWorkout = (workout) => {
+    setShowEdit(!showEdit);
+    console.log(workout)
 
-  // const updateWorkout = async (id) => {
-  //   try{
-  //      const updatedWorkout = workouts.find(w => w.id === id);
-  //     if (!updatedWorkout) return;
-  //     await axios.put(`http://localhost:8086/workouts/update/${id}`, updatedWorkout)
-  //     setWorkouts(workouts.map(w=> w.id === id ? {...w, ...updatedWorkout} : w))
-  //   }catch(error){
-  //      console.error("Error updating workout:", error);
-  //   }
-  // }
+    setEditWorkout(
+        workout
+   )
+  };
+
+  const handleEditSubmit = async (id) => {
+    try{
+      //  const updatedWorkout = workouts.find(w => w.id === id);
+      // if (!updatedWorkout) return;
+      await axios.put(`http://localhost:8086/workouts/update/${id}`, editWorkout)
+      setWorkouts(workouts.map(w=> w.id === id ? editWorkout : w))
+    }catch(error){
+       console.error("Error updating workout:", error);
+    }
+
+
+
+  }
 
   const deleteWorkout = async (id) => {
     try{
@@ -84,6 +107,24 @@ const WorkoutPage = () => {
   
   return (
      <div className="workout-container pageDiv">
+       { showEdit ? 
+       <div className="workout-form">
+        <h2>edit a Workout</h2>
+        <form onSubmit={()=>handleEditSubmit(editWorkout.id)}>
+           <select name="type" value={editWorkout.type} onChange={handleEditInputChange}>
+            <option value="" disabled>Select workout type</option>
+            {workoutTypes.map((type) => (
+              <option key={type} value={type}>{type}</option>
+            ))}
+          </select>
+          <input name="duration" placeholder="Duration (min)" value={editWorkout.duration} onChange={ handleEditInputChange} required />
+          <input name="caloriesBurned" placeholder="Calories Burned" value={editWorkout.caloriesBurned} onChange={handleEditInputChange} required />
+          <input type="date" name="date" value={editWorkout.date.substring(0,10)} onChange={handleEditInputChange} required />
+          <button type="submit" disabled={!editWorkout.date || !editWorkout.duration || !editWorkout.caloriesBurned || !editWorkout.type}>Submit Workout</button>
+        </form>
+      </div>
+      :
+      
       <div className="workout-form">
         <h2>Post a Workout</h2>
         <form onSubmit={handleSubmit}>
@@ -99,18 +140,22 @@ const WorkoutPage = () => {
           <button type="submit" disabled={!newWorkout.date || !newWorkout.duration || !newWorkout.caloriesBurned || !newWorkout.type}>Post Workout</button>
         </form>
       </div>
+}
 
       <div className="workout-list-container">
         <h2>Upcoming Workouts</h2>
         <div className="workout-list">
           {workouts.map(workout => (
             <div key={workout.id} className="workout-card">
-              <p><strong>Date:</strong> {workout.date}</p>
+              <p><strong>Date:</strong> { new Date(workout.date)
+                                .toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</p>
+                           
+                      
               <p><strong>Type:</strong> {workout.type}</p>
               <p><strong>Duration:</strong> {workout.duration} min</p>
               <p><strong>Calories Burned:</strong> {workout.caloriesBurned} kcal</p>
               <div className="workout-actions">
-                <button onClick={() => handleEditWorkout(workout)}>Edit</button>
+                <button onClick={()=>handleEditWorkout(workout)}>Edit</button>
                 <button onClick={() => deleteWorkout(workout.id)}>Delete</button>
               </div>
             </div>
