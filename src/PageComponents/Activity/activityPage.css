@@ -1,7 +1,5 @@
 /* Container for the Activity Page */
 .activity-container {
-  margin-left: 270px; /* Space for sidebar */
-  padding: 20px;
   max-width: 1200px;
   margin-right: auto;
 }

@@ -16,8 +16,13 @@ const Sidebar = () => {
         <h3>Grace</h3> 
       </div>
       
-      <h2>Dashboard</h2>
       <ul>
+        <li>
+            <NavLink to="/dashboard" activeclassname="active-link">
+              Dashboard
+            </NavLink>
+        </li>
+
         <li>
             <NavLink to="/activity" activeclassname="active-link">
             <FaRunning className="sidebar-icon" /> Activity</NavLink>

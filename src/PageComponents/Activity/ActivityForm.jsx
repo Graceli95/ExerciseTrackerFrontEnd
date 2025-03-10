@@ -22,7 +22,7 @@ const ActivityForm = ({onAddActivity}) => {
 
         try {
             //Save new activity to the MySQL database
-            const newActivity = await createActivity(formData)  // Send to backend
+            const newActivity = await createActivity(formData)  // Calls backend API, Send data to backend via createActivity function (Post request)
 
             // Update frontend state (pass new activity to parent component)
             onAddActivity(newActivity) // Call parent function (addActivity),,,   Update frontend state
@@ -55,6 +55,15 @@ export default ActivityForm
 
 //✅ Now when the form is submitted, the new activity is added to the list!
 // ActivityForm.jsx to Add New Activities
+//✅ The ActivityForm component is responsible for adding new activities.
+
+/**
+ * 🛠 How This Works
+When the user clicks "Submit," handleSubmit() runs.
+await createActivity(formData); sends data to the backend via POST.
+The backend saves the new activity in MySQL and returns it.
+onAddActivity(newActivity); updates the frontend without a page reload.
+ */
 
 /**
  * Step-by-step:

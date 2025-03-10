@@ -6,9 +6,9 @@
 
 import axios from "axios";
 
-const API_URL_ACTIVITIES = "http://localhost:8083/api/activities";
+const API_URL_ACTIVITIES = "http://localhost:8086/api/activities";
 
-const API_URL_ACTIVITY = "http://localhost:8083/api/activity";
+const API_URL_ACTIVITY = "http://localhost:8086/api/activity";
 
 //Fetch all activities from the backend API,, (get is fetch data from the server, get the data that user requested)
 export const getActivities = async () => {
@@ -34,6 +34,15 @@ export const createActivity = async (activity) => {
 }
 
 //✅ **Now, our frontend can fetch and store activities in MySQL.**
+
+/**
+ * getActivities() and createActivity() functions are part of my frontend service file (activityService.js). These functions:
+
+Send HTTP requests from the frontend (React) to the backend (Spring Boot).
+Receive responses from the backend and return data to the frontend.
+Handle errors properly to catch issues like server errors or network failures.
+
+ */
 
 
 /**
@@ -67,3 +76,5 @@ export const createActivity = async (activity) => {
  * Next Step Step 3 is to use this file activityService.js in the ActivityPage component to fetch and display activities.
 
  */
+
+

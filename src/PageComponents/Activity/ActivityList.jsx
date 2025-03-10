@@ -11,10 +11,13 @@ const ActivityList = ({activities}) => {
                 <div key={index} className="activity-item" >
                     <FaRunning className="activity-icon" />
                     <p>
-                        <strong>Calories Burned:</strong>{activity.caloriesBurned} -
-                        <strong>Distance:</strong>{activity.distance} KM -
-                        <strong>Steps:</strong>{activity.steps} -
-                        <strong>Date:</strong>{activity.date}
+                        <strong>Calories Burned </strong>{activity.caloriesBurned} -
+                        <strong>Distance: </strong>{activity.distance} KM -
+                        <strong>Steps: </strong>{activity.steps} -
+                        <strong>Date: </strong>{
+                            new Date(activity.date)
+                                .toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+                        }
                     </p>
                 </div>
             )) //React loops through the activities array and renders each activity in a list.

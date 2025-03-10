@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import ActivityForm from './ActivityForm'
 import ActivityList from './ActivityList'
+import "../../App.css"
 import './ActivityPage.css'
 import { getActivities } from '../../services/activityService'
 
@@ -19,9 +20,9 @@ const ActivityPage = () => {
     //✅ getActivities function fetches activities from the backend API and updates the activities state.
     
     const fetchActivities = async () => {
-      const data = await getActivities() //Calls backend.  getActivities() function fetches activities from the backend API.
+      const data = await getActivities() //Calls the backend API.  getActivities() function fetches activities from the backend API.
       console.log(data)
-      setActivities(data)  //Updates state.  Updates the activities state with the list of activities.
+      setActivities(data)  //Updates frontend state.  Updates the activities state with the list of activities.
     }
     fetchActivities()
   
@@ -37,7 +38,7 @@ const ActivityPage = () => {
   }
 
   return (
-    <div className="activity-container">
+    <div className="pageDiv">
       <h2>Activity</h2>
       <div className="activity-content">
         <ActivityForm onAddActivity={addActivity}/>
@@ -67,8 +68,13 @@ You can call this function from an event handler or somewhere else. It tells Rea
  *
  * 🔹 What this does:
  * useState([]): Creates a state variable activities to store the activities.
- * useEffect(...): Runs once when the component loads.
+ * useEffect(...): Runs once when the ActivityPage component loads.
  * Calls getActivities(), retrieves the list of activities from the backend, and updates the state using setActivities(data).
+ * 
+ * 🛠 How This Works
+When ActivityPage loads, useEffect() runs.
+It calls getActivities(), which fetches activities from the backend.
+setActivities(data) updates the UI with the retrieved activities.
  */
 
 /**
