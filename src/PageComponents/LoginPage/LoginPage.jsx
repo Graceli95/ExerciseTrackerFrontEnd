@@ -23,12 +23,12 @@ const LoginPage = () => {
       localStorage.setItem("currentUsername", response.data.username);
       // localStorage.setItem("currentUserWorkouts", JSON.stringify(response.data.workouts));
       console.log(response.data)
-      alert('Login successful!');
+      // alert('Login successful!');
       
       navigate('/workout');
     } catch (error) {
       console.error(`Error logging in: ${error.response ? error.response.status : 'Network Error'}`);
-      alert('Login failed. Please try again.');
+      // alert('Login failed. Please try again.');
     }
    }
    

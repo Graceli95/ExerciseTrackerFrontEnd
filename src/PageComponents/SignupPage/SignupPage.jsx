@@ -18,11 +18,11 @@ const SignupPage = () => {
         
         try{
             await axios.post('http://localhost:8086/users/register', formData)
-            alert('Sign up successful!')
-            navigate('/dashboard')
+            // alert('Sign up successful!')
+            navigate('/login')
         } catch (error) {
             console.error(`Error signing up: ${error.response ? error.response.status : 'Network Error'}`);
-            alert('Sign up failed. Please try again.')
+            // alert('Sign up failed. Please try again.')
         }
     }
 
