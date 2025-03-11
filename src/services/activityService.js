@@ -6,30 +6,48 @@
 
 import axios from "axios";
 
-const API_URL_ACTIVITIES = "http://localhost:8086/api/activities";
+// const getApiUrlActivities = (userId) => `http://localhost:8086/activities/users/${userId}`;
+// const getApiUrlActivity = (userId) => `http://localhost:8086/activities/user/${userId}/new`;
 
-const API_URL_ACTIVITY = "http://localhost:8086/api/activity";
 
-//Fetch all activities from the backend API,, (get is fetch data from the server, get the data that user requested)
-export const getActivities = async () => {
+const API_BASE_URL = "http://localhost:8086/activities"; // Base URL for API
+
+const getApiUrlActivities = (userId) => `${API_BASE_URL}/users/${userId}`;
+const getApiUrlActivity = (userId) => `${API_BASE_URL}/user/${userId}/new`;
+
+
+//Fetch all activities from the backend API (get is fetch data from the server, get the data that user requested)
+export const getActivities = async (userId) => {
+    
+    if(!userId){   //Ensures userId exists before making API calls (prevents undefined requests).
+
+        console.error("Error: userId is undefined. Cannot fetch activities.");
+        return []; // Return an empty array instead of making a bad request
+    }
+    
     try {
-        const response = await axios.get(API_URL_ACTIVITIES);
+        const response = await axios.get(getApiUrlActivities(userId));
         return response.data;
     } catch (error) {
         console.error(`Error fetching activities: ${error.response ? error.response.status : 'Network Error'}`);
-        throw error;
+        return [];  // Return an empty array to prevent crashing
     }
 
 }
 
 //create a new activity to the backend API,, (post is send data to the server)
-export const createActivity = async (activity) => {
+export const createActivity = async (userId, activity) => {
+    if(!userId){
+        console.error("Error: userId is undefined. Cannot create activity.");
+        return null;
+    }
+    
     try {
-        const response = await axios.post(API_URL_ACTIVITY, activity);
+        const response = await axios.post(getApiUrlActivity(userId), activity);
         return response.data;
     } catch (error) {
         console.error(`Error creating activity: ${error.response ? error.response.status : 'Network Error'}`);
-        throw error;
+        return null;  // to prevent crashing
     }
 }
 

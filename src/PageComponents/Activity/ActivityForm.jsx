@@ -1,46 +1,50 @@
 import React from 'react'
 import { useState } from 'react'
-import { createActivity } from '../../services/activityService'
 
 
-const ActivityForm = ({onAddActivity}) => {
-    const [formData, setFormData] = useState({
+const ActivityForm = ({onSubmit}) => {
+    
+  
+  // Initialize form state
+  const [formData, setFormData] = useState({
         caloriesBurned: "",
         distance: "",
         steps: "",
         date: "",
     })
 
-    // Handle input changes, and send the new value to the state
+    // Handle input changes, and send the new value to update the state
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
     } 
 
      // Handle form submission
-    const handleSumbit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
-        try {
-            //Save new activity to the MySQL database
-            const newActivity = await createActivity(formData)  // Calls backend API, Send data to backend via createActivity function (Post request)
+        await onSubmit(formData)  // Call `handleSubmit` in `ActivityPage.jsx`
 
-            // Update frontend state (pass new activity to parent component)
-            onAddActivity(newActivity) // Call parent function (addActivity),,,   Update frontend state
+        // try {
+        //     //Save new activity to the MySQL database
+        //     const newActivity = await createActivity(formData)  // Calls backend API, Send data to backend via createActivity function (Post request)
+
+        //     // Update frontend state (pass new activity to parent component)
+        //     onAddActivity(newActivity) // Call parent function (addActivity),,,   Update frontend state
 
             // Clear form, reset form data
-            setFormData({
+        setFormData({
                 caloriesBurned: "",
                 distance: "",
                 steps: "",
                 date: "",
-            }) 
-        } catch (error) {
-            console.error("Error posting activity:", error);
-        }
+        }) 
+        // } catch (error) {
+        //     console.error("Error posting activity:", error);
+        // }
     }
 
   return (
-    <form onSubmit={handleSumbit} className="activity-form">
+    <form onSubmit={handleSubmit} className="activity-form">
          <h3>Post New Activity</h3>
          <input type="number" name="caloriesBurned" placeholder="Enter calories burned" value={formData.caloriesBurned} onChange={handleChange} required/>
          <input type="number" name="distance" placeholder="Enter distance (KM)" value={formData.distance} onChange={handleChange} required/>

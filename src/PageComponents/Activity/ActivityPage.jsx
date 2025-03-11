@@ -1,47 +1,79 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import ActivityForm from './ActivityForm'
 import ActivityList from './ActivityList'
 import "../../App.css"
 import './ActivityPage.css'
-import { getActivities } from '../../services/activityService'
+import { getActivities, createActivity } from '../../services/activityService'
+
 
 const ActivityPage = () => {
+
+   
+   //retrieve userId from localStorage
+   const userId = JSON.parse(localStorage.getItem("currentUserId")) || null;
+
+  
 
   //State to hold/store activities
   //✅ with useState hook, activities state will store all activities, and addActivity will update it.
   const [activities, setActivities] = useState([]) // State to store activities //useState([]): Creates a state variable activities to store the activities.
 
 
-  // Fetch activities from the backend when the page loads using useEffect hook.
-  //✅ useEffect hook runs the getActivities function when the component mounts.
+  // Fetch activities from the backend when the page loads and userId is available using useEffect hook.
+  // Fetch activities when user logs in
   useEffect(() => {
+    if(!userId) return; // Ensure userId is defined before making the request, Prevent unnecessary API call if userId is missing
     
     //✅ getActivities function fetches activities from the backend API and updates the activities state.
     
     const fetchActivities = async () => {
-      const data = await getActivities() //Calls the backend API.  getActivities() function fetches activities from the backend API.
-      console.log(data)
-      setActivities(data)  //Updates frontend state.  Updates the activities state with the list of activities.
+      
+      try{
+        const data = await getActivities(userId) //Calls the backend API.  getActivities() function fetches activities from the backend API.
+        console.log(data)
+        setActivities(data)  //Update state with fetched activities,, Updates frontend state.  Updates the activities state with the list of activities.
+      }catch(error){
+        console.error("Error fetching activities:", error);
+      }
+      
     }
     fetchActivities()
   
-  }, []) // The empty dependency array ensures this effect runs only once when the component mounts.
-  
+  }, [userId])   // Runs when `userId` changes
  
 
   // ✅Function to add a new activity to the list.  that takes an activity object as an argument and logs the activity object to the console.
 
-  const addActivity = (newActivity) => {
-    console.log(newActivity);
-    setActivities([newActivity, ...activities]); //Updates the state using setActivities(), adding the new activity to the list.
+  // const addActivity = (newActivity) => {
+  //   console.log(newActivity);
+  //   setActivities([newActivity, ...activities]); //Updates the state using setActivities(), adding the new activity to the list.
+  // }
+
+  // Function to handle form submission
+  const handleSubmit = async(activityData) => {
+   
+
+    if(!userId){
+      console.error("Error: userId is undefined, cannot post activity.");
+      return;
+    }
+
+    try{
+       const response = await createActivity(userId, activityData)
+       if(response){
+          setActivities([...activities, response]);  // Update activity list
+       }
+    }catch(error){
+       console.error("Error posting activity:", error);
+    }
+
   }
 
   return (
     <div className="pageDiv">
       <h2>Activity</h2>
       <div className="activity-content">
-        <ActivityForm onAddActivity={addActivity}/>
+        <ActivityForm onSubmit={handleSubmit}/>
         <ActivityList activities={activities}/>   {/* Passes activities as a prop, Passes the state variable activities as a prop to the ActivityList component. */}
       </div>
     </div>

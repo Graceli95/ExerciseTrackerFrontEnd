@@ -36,6 +36,7 @@ const WorkoutPage = () => {
 
     const fetchWorkouts = async () => {
       try{
+        console.log("Steven Tes: fetch workouts for "+userId)
         const response = await axios.get(`http://localhost:8086/users/${userId}/workouts`)
         setWorkouts(response.data)
       } catch(error){
