@@ -75,11 +75,11 @@ const SignupPage = () => {
         setLoading(true);
 
         // Password Match Validation
-        if (formData.password !== formData.confirmPassword) {
-            setError("Passwords do not match.");
-            setLoading(false);
-            return;
-        }
+        // if (formData.password !== formData.confirmPassword) {
+        //     setError("Passwords do not match.");
+        //     setLoading(false);
+        //     return;
+        // }
 
         try {
             await axios.post('http://localhost:8086/users/register', {

@@ -67,10 +67,10 @@ const LoginPage = () => {
     setError('');
 
      // Prevent empty email or password submission
-    if (!formData.email || !formData.password) {
-        setError("Please enter both email and password.");
-        return;
-    }
+    // if (!formData.email || !formData.password) {
+    //     setError("Please enter both email and password.");
+    //     return;
+    // }
 
     setLoading(true);
 
