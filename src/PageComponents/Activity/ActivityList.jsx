@@ -12,11 +12,12 @@ const ActivityList = ({activities}) => {
                     <FaRunning className="activity-icon" />
                     <p>
                         <strong>Calories Burned </strong>{activity.caloriesBurned} -
-                        <strong>Distance: </strong>{activity.distance} KM -
-                        <strong>Steps: </strong>{activity.steps} -
-                        <strong>Date: </strong>{
+                        <strong> Distance: </strong>{activity.distance} KM
+                        <br/>
+                        <strong> Steps: </strong>{activity.steps} -
+                        <strong> Date: </strong>{
                             new Date(activity.date)
-                                .toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+                                .toLocaleDateString()
                         }
                     </p>
                 </div>
@@ -54,3 +55,6 @@ Step	Action	What Happens?
 
 
  */
+
+// new Date(activity.date)
+                                //.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })

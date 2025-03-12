@@ -44,7 +44,7 @@ const ActivityForm = ({onSubmit}) => {
     }
 
   return (
-    <form onSubmit={handleSubmit} className="activity-form">
+    <form onSubmit={handleSubmit} className="activityForm">
          <h3>Post New Activity</h3>
          <input type="number" name="caloriesBurned" placeholder="Enter calories burned" value={formData.caloriesBurned} onChange={handleChange} required/>
          <input type="number" name="distance" placeholder="Enter distance (KM)" value={formData.distance} onChange={handleChange} required/>

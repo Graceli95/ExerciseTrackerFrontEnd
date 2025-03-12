@@ -1,22 +1,35 @@
 .workout-container {
   display: flex;
+  max-width: 1200px;
   justify-content: space-between;
-  align-items: flex-start;
+  gap: 40px;
 }
 
 
 .workout-form {
-  flex: 1;
-  max-width: 40%;
+  max-width: 45%;
   background: #f9f9f9;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.workout-form form {
+.workout-list-container {
+ width: 55%;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.workout-list-container h2 {
+  margin-bottom: 10px;
+}
+
+.workout-list {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 .workout-form input, .workout-form select, .workout-form button {
@@ -26,27 +39,13 @@
   border-radius: 5px;
 }
 
-.workout-list-container {
-  flex: 1;
-  max-width: 55%;
-}
-
-.workout-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
 .workout-card {
-  background: white;
-  padding: 15px;
-  border-radius: 8px;
+  background-color: #f4f4f4;
+  /* padding: 15px; */
+  border-radius: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.workout-actions {
-  display: flex;
-  justify-content: space-between;
+  text-align: center;
+  padding-top: 4px;
   margin-top: 10px;
 }
 
@@ -57,8 +56,81 @@
   cursor: pointer;
   background-color: #007bff;
   color: white;
+  margin: 5px;
 }
 
 .workout-actions button:hover {
   background-color: #0056b3;
 }
+
+.workout-form {
+  width: 350px;
+  background: #f9fafb;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.workout-form h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #333;
+}
+
+.workout-form input {
+  display: block;
+  width: 94%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  color: black;
+}
+
+.workout-form input::placeholder{
+  color: #a5a4a4;
+}
+
+.workout-form input:focus{
+  color: #333;
+  border-color: #7a7979;
+}
+
+.workout-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+  font-weight: bold;
+}
+
+.workout-form button:hover {
+  background-color: #1e40af;
+}
+
+
+/* .workout-form form {
+  
+} */
+
+/*
+
+
+
+
+
+
+
+.workout-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+ */

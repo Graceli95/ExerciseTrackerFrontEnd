@@ -45,7 +45,7 @@ const WorkoutPage = () => {
     }
 
     fetchWorkouts();
-  }, [userId]);
+  }, [userId]); // ✅ Now workouts update correctly when user switches
 
   const handleInputChange = (e) => {
     setNewWorkout({...newWorkout, [e.target.name]: e.target.value})
@@ -87,12 +87,11 @@ const WorkoutPage = () => {
       // if (!updatedWorkout) return;
       await axios.put(`http://localhost:8086/workouts/update/${id}`, editWorkout)
       setWorkouts(workouts.map(w=> w.id === id ? editWorkout : w))
+
+      setShowEdit(false); // ✅ Close edit form after updating
     }catch(error){
        console.error("Error updating workout:", error);
     }
-
-
-
   }
 
   const deleteWorkout = async (id) => {
@@ -110,8 +109,8 @@ const WorkoutPage = () => {
      <div className="workout-container pageDiv">
        { showEdit ? 
        <div className="workout-form">
-        <h2>edit a Workout</h2>
-        <form onSubmit={()=>handleEditSubmit(editWorkout.id)}>
+        <h2>Edit new Workout</h2>
+        <form onSubmit={()=>handleEditSubmit(editWorkout.id)} className="activity_form">
            <select name="type" value={editWorkout.type} onChange={handleEditInputChange}>
             <option value="" disabled>Select workout type</option>
             {workoutTypes.map((type) => (
@@ -121,14 +120,15 @@ const WorkoutPage = () => {
           <input name="duration" placeholder="Duration (min)" value={editWorkout.duration} onChange={ handleEditInputChange} required />
           <input name="caloriesBurned" placeholder="Calories Burned" value={editWorkout.caloriesBurned} onChange={handleEditInputChange} required />
           <input type="date" name="date" value={editWorkout.date.substring(0,10)} onChange={handleEditInputChange} required />
-          <button type="submit" disabled={!editWorkout.date || !editWorkout.duration || !editWorkout.caloriesBurned || !editWorkout.type}>Submit Workout</button>
+          <button type="submit" disabled={
+            !editWorkout.date || !editWorkout.duration || !editWorkout.caloriesBurned || !editWorkout.type}>Submit Workout</button>
         </form>
       </div>
       :
       
       <div className="workout-form">
         <h2>Post a Workout</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} >
            <select name="type" value={newWorkout.type} onChange={handleInputChange}>
             <option value="" disabled>Select workout type</option>
             {workoutTypes.map((type) => (
@@ -138,23 +138,28 @@ const WorkoutPage = () => {
           <input name="duration" placeholder="Duration (min)" value={newWorkout.duration} onChange={handleInputChange} required />
           <input name="caloriesBurned" placeholder="Calories Burned" value={newWorkout.caloriesBurned} onChange={handleInputChange} required />
           <input type="date" name="date" value={newWorkout.date} onChange={handleDateChange} required />
-          <button type="submit" disabled={!newWorkout.date || !newWorkout.duration || !newWorkout.caloriesBurned || !newWorkout.type}>Post Workout</button>
+          <button type="submit" disabled={
+            !newWorkout.date || !newWorkout.duration || !newWorkout.caloriesBurned || !newWorkout.type}>
+              Post Workout
+          </button>
         </form>
       </div>
 }
+
 
       <div className="workout-list-container">
         <h2>Upcoming Workouts</h2>
         <div className="workout-list">
           {workouts.map(workout => (
             <div key={workout.id} className="workout-card">
-              <p><strong>Date:</strong> { new Date(workout.date)
-                                .toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</p>
-                           
-                      
-              <p><strong>Type:</strong> {workout.type}</p>
-              <p><strong>Duration:</strong> {workout.duration} min</p>
-              <p><strong>Calories Burned:</strong> {workout.caloriesBurned} kcal</p>
+              <div>
+                 <strong>Calories Burned:</strong> {workout.caloriesBurned} -
+                 <strong>Type:</strong> {workout.type}            
+              </div>
+              <div><strong>Duration:</strong> {workout.duration} min - 
+                 <strong>Date:</strong> { new Date(workout.date)
+                                .toLocaleDateString()}
+              </div> 
               <div className="workout-actions">
                 <button onClick={()=>handleEditWorkout(workout)}>Edit</button>
                 <button onClick={() => deleteWorkout(workout.id)}>Delete</button>

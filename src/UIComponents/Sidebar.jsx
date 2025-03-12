@@ -6,6 +6,7 @@ import { FaRunning } from 'react-icons/fa'
 import { FaDumbbell } from 'react-icons/fa'
 import { FaCalendarAlt } from 'react-icons/fa'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -16,38 +17,59 @@ const Sidebar = () => {
 
   useEffect(()=>{
     
-     setCurrentUsername(localStorage.getItem("currentUsername"));
-  }, [localStorage.getItem("currentUsername")]
-)
+    const updateUsername = () => {
+        setCurrentUsername(localStorage.getItem("currentUsername"));
+    };
+
+    window.addEventListener("storage", updateUsername); // Listen for changes in storage
+    return () => window.removeEventListener("storage", updateUsername); // Cleanup event listener
+}, []); // Empty array to only set up once
+//✅ This ensures Sidebar updates immediately when a user logs in or logs out.
+
+
+   const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem("currentUsername");
+        localStorage.removeItem("currentUserId")
+        setCurrentUsername(null);   // Ensure UI updates properly after logout,  Prevents frozen page when switching users
+        
+        
+        navigate("/"); // Redirect to landing page
+    }; //✅ Now, when a user logs out, the workouts reset, preventing incorrect data display.
+
   
 
   return (
     <div className="sidebar">
       <div className="profile">
         <FaUserCircle className="profile-icon" /> 
-        <h3>{localStorage.getItem("currentUsername")}</h3> 
+        <h3>{currentusername || "Guest"}</h3> 
         
       </div>
       
       <ul>
         <li>
-            <NavLink to="/dashboard" activeclassname="active-link">
+            <NavLink to="/dashboard" className={({isActive}) => isActive ? "active-link" : ""}>
               Dashboard
             </NavLink>
         </li>
 
         <li>
-            <NavLink to="/activity" activeclassname="active-link">
+            <NavLink to="/activity" className={({isActive}) => isActive ? "active-link" : ""}>
             <FaRunning className="sidebar-icon" /> Activity</NavLink>
         </li>
 
         <li>
-          <NavLink to="/workout" activeclassname="active-link">
+          <NavLink to="/workout" className={({isActive}) => isActive ? "active-link" : ""}>
             <FaDumbbell className="sidebar-icon" /> Workout</NavLink>
         </li>
         <li>
-          <NavLink to="/schedule" activeclassname="active-link">
+          <NavLink to="/schedule" className={({isActive}) => isActive ? "active-link" : ""}>
             <FaCalendarAlt className="sidebar-icon" /> Schedule</NavLink>
+        </li>
+        <li>
+          <button onClick={handleLogout}>Logout</button>
         </li>
       </ul>
       
