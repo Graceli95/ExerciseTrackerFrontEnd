@@ -8,7 +8,7 @@
 .activity-content {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap: 40px;
 }
 
 /* Activity List Styling */

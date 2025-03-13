@@ -7,7 +7,7 @@
 
 
 .workout-form {
-  max-width: 45%;
+  max-width: 350px;
   background: #f9f9f9;
   padding: 20px;
   border-radius: 8px;
@@ -15,7 +15,7 @@
 }
 
 .workout-list-container {
- width: 55%;
+ width: 490px;
   background: white;
   padding: 20px;
   border-radius: 8px;
