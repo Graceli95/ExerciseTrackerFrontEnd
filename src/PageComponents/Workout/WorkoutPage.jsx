@@ -111,7 +111,7 @@ const WorkoutPage = () => {
      <div className="workout-container pageDiv">
        { showEdit ? 
        <div className="workout-form">
-        <h2>Edit new Workout</h2>
+        <h2>Edit This Workout</h2>
         <form onSubmit={()=>handleEditSubmit(editWorkout.id)} className="activity_form">
            <select name="type" value={editWorkout.type} onChange={handleEditInputChange}>
             <option value="" disabled>Select workout type</option>
@@ -129,7 +129,7 @@ const WorkoutPage = () => {
       :
       
       <div className="workout-form">
-        <h2>Post a Workout</h2>
+        <h2>Post New Workout</h2>
         <form onSubmit={handleSubmit} >
            <select name="type" value={newWorkout.type} onChange={handleInputChange}>
             <option value="" disabled>Select workout type</option>
@@ -163,7 +163,7 @@ const WorkoutPage = () => {
                                 .toLocaleDateString()}
               </div> 
               <div className="workout-actions">
-                <button onClick={()=>handleEditWorkout(workout)}>Edit</button>
+                <button onClick={()=>handleEditWorkout(workout)}>Update</button>
                 <button onClick={() => deleteWorkout(workout.id)}>Delete</button>
               </div>
             </div>
