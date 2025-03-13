@@ -1,29 +1,29 @@
-import React, { useEffect } from 'react'
+// import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import './Sidebar.css'
 import { FaUserCircle } from 'react-icons/fa'
 import { FaRunning } from 'react-icons/fa'
 import { FaDumbbell } from 'react-icons/fa'
 import { FaCalendarAlt } from 'react-icons/fa'
-import { useState } from 'react'
+// import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 
 
 const Sidebar = () => {
 
-  const [currentusername, setCurrentUsername] = useState(localStorage.getItem("currentUsername"))
-  console.log(currentusername)
+  // const [currentusername, setCurrentUsername] = useState(localStorage.getItem("currentUsername"))
+  // console.log(currentusername)
 
-  useEffect(()=>{
+//   useEffect(()=>{
     
-    const updateUsername = () => {
-        setCurrentUsername(localStorage.getItem("currentUsername"));
-    };
+//     const updateUsername = () => {
+//         setCurrentUsername(localStorage.getItem("currentUsername"));
+//     };
 
-    window.addEventListener("localStorage", updateUsername); // Listen for changes in storage
-    return () => window.removeEventListener("localStorage", updateUsername); // Cleanup event listener
-}, []); // Empty array to only set up once
+//     window.addEventListener("localStorage", updateUsername); // Listen for changes in storage
+//     return () => window.removeEventListener("localStorage", updateUsername); // Cleanup event listener
+// }, []); // Empty array to only set up once
 //✅ This ensures Sidebar updates immediately when a user logs in or logs out.
 
 
@@ -32,7 +32,7 @@ const Sidebar = () => {
     const handleLogout = () => {
         localStorage.removeItem("currentUsername");
         localStorage.removeItem("currentUserId")
-        setCurrentUsername(null);   // Ensure UI updates properly after logout,  Prevents frozen page when switching users
+        // setCurrentUsername(null);   // Ensure UI updates properly after logout,  Prevents frozen page when switching users
         
         
         navigate("/"); // Redirect to landing page
@@ -42,7 +42,7 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="profile">
         <FaUserCircle className="profile-icon" /> 
-        <h3>{currentusername}</h3> 
+        <h3>{localStorage.getItem("currentUsername")}</h3>  
         
       </div>
       

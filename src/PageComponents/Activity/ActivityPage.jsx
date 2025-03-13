@@ -62,7 +62,7 @@ const ActivityPage = () => {
     try{
        const response = await createActivity(userId, activityData)
        if(response){
-          setActivities([...activities, response]);  // Update activity list
+          setActivities([response,...activities]);  // Update activity list
        }
     }catch(error){
        console.error("Error posting activity:", error);
