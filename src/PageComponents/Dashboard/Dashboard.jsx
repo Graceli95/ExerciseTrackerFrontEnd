@@ -14,6 +14,7 @@ const WorkoutCharts = () => {
   const [activities, setActivities] = useState([]);
 
   useEffect(() => {
+
     if (!userId) return; // Ensure userId is defined before making the request
 
     const fetchWorkoutsAndActivities = async () => {

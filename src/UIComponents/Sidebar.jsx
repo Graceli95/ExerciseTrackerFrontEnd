@@ -21,8 +21,8 @@ const Sidebar = () => {
         setCurrentUsername(localStorage.getItem("currentUsername"));
     };
 
-    window.addEventListener("storage", updateUsername); // Listen for changes in storage
-    return () => window.removeEventListener("storage", updateUsername); // Cleanup event listener
+    window.addEventListener("localStorage", updateUsername); // Listen for changes in storage
+    return () => window.removeEventListener("localStorage", updateUsername); // Cleanup event listener
 }, []); // Empty array to only set up once
 //✅ This ensures Sidebar updates immediately when a user logs in or logs out.
 
@@ -38,13 +38,11 @@ const Sidebar = () => {
         navigate("/"); // Redirect to landing page
     }; //✅ Now, when a user logs out, the workouts reset, preventing incorrect data display.
 
-  
-
   return (
     <div className="sidebar">
       <div className="profile">
         <FaUserCircle className="profile-icon" /> 
-        <h3>{currentusername || "Guest"}</h3> 
+        <h3>{currentusername}</h3> 
         
       </div>
       
@@ -80,3 +78,6 @@ const Sidebar = () => {
 export default Sidebar
 
 // ✅ The Sidebar now has a Dashboard title and an Activity link. The Activity link is a NavLink component that links to the /activity route.
+
+
+

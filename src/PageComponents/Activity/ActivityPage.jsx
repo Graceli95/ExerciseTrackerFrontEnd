@@ -10,7 +10,7 @@ const ActivityPage = () => {
 
    
    //retrieve userId from localStorage
-   const userId = JSON.parse(localStorage.getItem("currentUserId")) || null;
+   const userId = JSON.parse(localStorage.getItem("currentUserId"));
 
   
 
@@ -30,13 +30,14 @@ const ActivityPage = () => {
       
       try{
         const data = await getActivities(userId) //Calls the backend API.  getActivities() function fetches activities from the backend API.
-        console.log(data)
+    
         setActivities(data)  //Update state with fetched activities,, Updates frontend state.  Updates the activities state with the list of activities.
       }catch(error){
         console.error("Error fetching activities:", error);
       }
       
     }
+
     fetchActivities()
   
   }, [userId])   // Runs when `userId` changes
@@ -74,7 +75,7 @@ const ActivityPage = () => {
       <h2>Activity</h2>
       <div className="activity-content">
         <ActivityForm onSubmit={handleSubmit}/>
-        <ActivityList activities={activities}/>   {/* Passes activities as a prop, Passes the state variable activities as a prop to the ActivityList component. */}
+        <ActivityList activities={activities} setActivities={setActivities}/>   {/* Passes activities as a prop, Passes the state variable activities as a prop to the ActivityList component. */}
       </div>
     </div>
   )

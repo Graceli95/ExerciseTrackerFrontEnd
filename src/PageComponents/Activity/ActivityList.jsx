@@ -1,11 +1,29 @@
 import React from 'react'
 import { FaRunning } from 'react-icons/fa'
+import axios from 'axios'
+import "./ActivityList.css"  // ✅ Import the styles
 
 
-const ActivityList = ({activities}) => {
+const ActivityList = ({activities, setActivities}) => {
+    // const userId = JSON.parse(localStorage.getItem("currentUserId"));
+
+    const toggleCompletion = async (id) => {
+        try{
+            await axios.patch(`http://localhost:8086/activities/${id}/complete`)
+
+            // ✅ Update UI without reloading
+            setActivities(activities.map(activity =>
+                activity.id === id ? {...activity, completed: !activity.completed} : activity
+            ))
+        } catch (error) {
+           console.error("Error updating activity completion:", error);
+          }
+        
+    }
+
   return (
     <div className="activity-list">
-        <h3>Past Activities</h3>
+        <h3>My Activities</h3>
         {activities.length ===0  ? (<p>No activities recorded yet.</p>) : (
             activities.map((activity, index)=>(
                 <div key={index} className="activity-item" >
@@ -20,6 +38,20 @@ const ActivityList = ({activities}) => {
                                 .toLocaleDateString()
                         }
                     </p>
+
+                      {/* ✅ Only show button if the activity is NOT completed */}
+                      {!activity.completed && (
+                        <button onClick={()=> toggleCompletion(activity.id)}
+                         className={`toggle-button ${activity.completed ? "completed" : "incomplete"}`}
+                        
+                        >
+                            {activity.completed ? "✔ Completed" : "Mark as Done"}
+                        </button>
+                      )}
+
+                       {/* ✅ Show checkmark if already completed */}
+                       {activity.completed && <span className='completed-text'>✔ Completed</span>}
+                    
                 </div>
             )) //React loops through the activities array and renders each activity in a list.
         )}

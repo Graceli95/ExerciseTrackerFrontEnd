@@ -16,7 +16,12 @@ const WorkoutPage = () => {
     date: ""
   })
 
+  let isflag = false;
+  console.log(isflag);
+  isflag = true; 
+
   const [showEdit, setShowEdit] = useState(false);
+
 
   const [editWorkout, setEditWorkout] = useState({
     type: "",

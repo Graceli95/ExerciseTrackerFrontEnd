@@ -1,0 +1,53 @@
+/* Default button styling */
+.toggle-button {
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Incomplete activity (default) */
+.toggle-button.incomplete {
+  background-color: #007bff; /* Blue */
+  color: white;
+}
+
+.toggle-button.incomplete:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Completed activity */
+.toggle-button.completed {
+  background-color: #28a745; /* Green */
+  color: white;
+  cursor: default; /* Prevents user from clicking again */
+}
+
+/* Activity card styling */
+.activity-item {
+  background-color: #f8f9fa; /* Light gray background */
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Completed activities will have a green tint */
+.activity-item.completed {
+  background-color: #d4edda; /* Light green background */
+  color: #155724; /* Dark green text */
+  /* font-weight: bold; */
+}
+
+/* Completed checkmark */
+.completed-text {
+  color: green;
+  font-weight: bold;
+  font-size: 14px;
+}
